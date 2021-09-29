@@ -15,7 +15,7 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByEyeColor(people)
+      searchResults = traitSearch(people);
       break;
     default:
       app(people); // restart app
@@ -79,7 +79,7 @@ function searchByName(people) {
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -94,7 +94,7 @@ function searchByEyeColor(people) {
       return false;
     }
   })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 function searchByGender(people) {
@@ -108,21 +108,7 @@ function searchByGender(people) {
       return false;
     }
   })
-  return foundPerson;
-}
-
-function searchByDob(people) {
-
-  let dob = promptFor("What is the person's gender?", autoValid);
-
-  let foundPerson = people.filter(function (potentialMatch) {
-    if (potentialMatch.dob === dob) {
-      return true;
-    } else {
-      return false;
-    }
-  })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 function searchByDob(people) {
@@ -136,7 +122,7 @@ function searchByDob(people) {
       return false;
     }
   })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 function searchByHeight(people) {
@@ -150,7 +136,7 @@ function searchByHeight(people) {
       return false;
     }
   })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 function searchByWeight(people) {
@@ -164,7 +150,7 @@ function searchByWeight(people) {
       return false;
     }
   })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 function searchByOccupation(people) {
@@ -178,7 +164,7 @@ function searchByOccupation(people) {
       return false;
     }
   })
-  return foundPerson;
+  return displayPeople(foundPerson);
 }
 
 
@@ -253,4 +239,35 @@ function customValidation(input) {
 
 }
 
+//#endregion
+
+//#region
+
+function traitSearch(people){
+  let searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
+      
+  switch(searchTraitSelection.toLowerCase()){
+    case "gender":
+        searchTraitSelection = searchByGender(people);
+        break;
+    case "dob":
+        searchTraitSelection = searchByDob(people);
+        break;
+    case "height":
+        searchTraitSelection = searchByHeight(people);
+        break;
+    case "weight":
+        searchTraitSelection = searchByWeight(people);
+        break;
+    case "eyecolor":
+      searchTraitSelection = searchByEyeColor(people);
+        break;
+    case "occupation":   
+    searchTraitSelection = searchByOccupation(people);
+    default:
+        console.log("Whoops, try again!");
+        break;
+       
+  }
+}
 //#endregion
