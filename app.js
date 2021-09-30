@@ -15,12 +15,8 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-
       searchResults = multiTraitSearch(people);
-
-
       break;
-
     default:
       app(people); // restart app
       break;
@@ -182,6 +178,7 @@ function searchByOccupation(people) {
 }
 
 
+
 //TODO: add other trait filter functions here.
 
 
@@ -216,7 +213,7 @@ function displayPerson(person) {
 
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
-  return mainMenu;
+  return mainMenu(person);
 }
 
 function displayFamily(people) {
