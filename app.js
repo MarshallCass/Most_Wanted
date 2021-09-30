@@ -15,11 +15,19 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = traitSearch(people);
+      let multiOrSingle = prompt("Search by single trait or multiple trait? Input single or multi");
+      if (multiOrSingle.toLowerCase() === "single") {
+        searchResults = traitSearch(people);
+      } else if (multiOrSingle.toLowerCase() === "multi") {
+        searchResults = multiTraitSearch(people);
+
+      }
       break;
+
     default:
       app(people); // restart app
       break;
+
   }
 
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
@@ -94,7 +102,8 @@ function searchByEyeColor(people) {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson);
+  return foundPerson;
 }
 
 function searchByGender(people) {
@@ -108,7 +117,8 @@ function searchByGender(people) {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson);
+  return foundPerson;
 }
 
 function searchByDob(people) {
@@ -122,7 +132,8 @@ function searchByDob(people) {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson);
+  return foundPerson;
 }
 
 function searchByHeight(people) {
@@ -130,13 +141,14 @@ function searchByHeight(people) {
   let height = promptFor("What is the person's height in inches?", autoValid);
 
   let foundPerson = people.filter(function (potentialMatch) {
-    if (potentialMatch.height === height) {
+    if (potentialMatch.height === parseInt(height)) {
       return true;
     } else {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson)
+  return foundPerson;
 }
 
 function searchByWeight(people) {
@@ -144,13 +156,14 @@ function searchByWeight(people) {
   let weight = promptFor("What is the person's weight in pounds?", autoValid);
 
   let foundPerson = people.filter(function (potentialMatch) {
-    if (potentialMatch.weight === weight) {
+    if (potentialMatch.weight === parseInt(weight)) {
       return true;
     } else {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson)
+  return foundPerson;
 }
 
 function searchByOccupation(people) {
@@ -164,7 +177,8 @@ function searchByOccupation(people) {
       return false;
     }
   })
-  return displayPeople(foundPerson);
+  displayPeople(foundPerson);
+  return foundPerson;
 }
 
 
@@ -243,31 +257,77 @@ function customValidation(input) {
 
 //#region
 
-function traitSearch(people){
+function traitSearch(people) {
   let searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
-      
-  switch(searchTraitSelection.toLowerCase()){
+
+  switch (searchTraitSelection.toLowerCase()) {
     case "gender":
-        searchTraitSelection = searchByGender(people);
-        break;
+      searchTraitSelection = searchByGender(people);
+      break;
     case "dob":
-        searchTraitSelection = searchByDob(people);
-        break;
+      searchTraitSelection = searchByDob(people);
+      break;
     case "height":
-        searchTraitSelection = searchByHeight(people);
-        break;
+      searchTraitSelection = searchByHeight(people);
+      break;
     case "weight":
-        searchTraitSelection = searchByWeight(people);
-        break;
+      searchTraitSelection = searchByWeight(people);
+      break;
     case "eyecolor":
       searchTraitSelection = searchByEyeColor(people);
-        break;
-    case "occupation":   
-    searchTraitSelection = searchByOccupation(people);
+      break;
+    case "occupation":
+      searchTraitSelection = searchByOccupation(people);
     default:
-        console.log("Whoops, try again!");
-        break;
-       
+      console.log("Whoops, try again!");
+      break;
+
   }
+}
+function multiTraitSearch(people) {
+  let searchTraitSelection;
+  let repeat = "";
+  let counter = 0;
+  let foundPerson = people;
+
+  while (counter !== 5 || repeat !== "done") {
+    searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
+    switch (searchTraitSelection) {
+      case "gender":
+        foundPerson = searchByGender(foundPerson);
+        counter++
+        break;
+      case "dob":
+        foundPerson = searchByDob(foundPerson);
+        counter++
+        break;
+      case "height":
+        foundPerson = searchByHeight(foundPerson);
+        counter++
+        break;
+      case "weight":
+        foundPerson = searchByWeight(foundPerson);
+        counter++
+        break;
+      case "eyecolor":
+        foundPerson = searchByEyeColor(foundPerson);
+        counter++
+        break;
+      case "occupation":
+        counter++
+        foundPerson = searchByOccupation(foundPerson);
+      default:
+        console.log("Whoops, try again!");
+        counter++
+        break;
+
+    }
+    repeat = prompt("Would you like to search by another trait? If not type done")
+    counter++
+    if (repeat === "done") {
+      break;
+    }
+  }
+
 }
 //#endregion
