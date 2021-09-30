@@ -40,7 +40,7 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      // TODO: get person's info
+      displayPerson(person);
       break;
     case "family":
       // TODO: get person's family
@@ -70,7 +70,7 @@ function searchByName(people) {
   let firstName = promptFor("What is the person's first name?", autoValid);
   let lastName = promptFor("What is the person's last name?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.firstName === firstName && potentialMatch.lastName === lastName) {
       return true;
     }
@@ -79,7 +79,7 @@ function searchByName(people) {
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return displayPeople(foundPerson);
+  return displayPerson(foundPerson);
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -87,7 +87,7 @@ function searchByEyeColor(people) {
 
   let eyeColor = promptFor("What is the person's eye color?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.eyeColor === eyeColor) {
       return true;
     } else {
@@ -101,7 +101,7 @@ function searchByGender(people) {
 
   let gender = promptFor("What is the person's gender?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.gender === gender) {
       return true;
     } else {
@@ -115,7 +115,7 @@ function searchByDob(people) {
 
   let dob = promptFor("What is the person's date of birth? EX: 1/11/11", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.dob === dob) {
       return true;
     } else {
@@ -129,7 +129,7 @@ function searchByHeight(people) {
 
   let height = promptFor("What is the person's height in inches?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.height === height) {
       return true;
     } else {
@@ -143,7 +143,7 @@ function searchByWeight(people) {
 
   let weight = promptFor("What is the person's weight in pounds?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.weight === weight) {
       return true;
     } else {
@@ -157,7 +157,7 @@ function searchByOccupation(people) {
 
   let occupation = promptFor("What is the person's occupation?", autoValid);
 
-  let foundPerson = people.filter(function (potentialMatch) {
+  let foundPerson = people.filter(function(potentialMatch) {
     if (potentialMatch.occupation === occupation) {
       return true;
     } else {
@@ -192,6 +192,15 @@ function displayPerson(person) {
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: " + person.gender + "\n"; 
+  personInfo += "DOB: " + person.dob + "\n"; 
+  personInfo += "Height: " + person.height + "\n"; 
+  personInfo += "Weight: " + person.weight + "\n"; 
+  personInfo += "Eye Color: " + person.eyeColor + "\n"; 
+  personInfo += "Occupation: " + person.occupation + "\n"; 
+  // personInfo += "Parents: " + person.parents + "\n"; 
+  // personInfo += "Spouse: " + person.currentSpouse + "\n";
+
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
 }
