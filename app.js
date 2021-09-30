@@ -43,10 +43,10 @@ function mainMenu(person, people) {
       displayPerson(person);
       break;
     case "family":
-      // TODO: get person's family
+      displayFamily(people);
       break;
     case "descendants":
-      // TODO: get person's descendants
+      displayDecendants(people);
       break;
     case "restart":
       app(people); // restart
@@ -203,7 +203,23 @@ function displayPerson(person) {
 
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+  return mainMenu;
 }
+
+function displayFamily(people) {
+  // print all of the person's family relations:
+  // Parents, GrandParents, Decendants, Spouse
+    
+  alert(personFamily);
+}
+
+function displayDecendants(people) {
+  // print all of the person's Decendants:
+  // Decendants
+    
+  alert(personDecendants);
+}
+
 
 //#endregion
 
