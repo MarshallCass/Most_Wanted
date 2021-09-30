@@ -44,7 +44,7 @@ function mainMenu(person, people) {
     return app(people); // restart
   }
 
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch (displayOption) {
     case "info":
@@ -86,8 +86,10 @@ function searchByName(people) {
       return false;
     }
   })
+
   // TODO: find the person single person object using the name they entered.
   return displayPerson(foundPerson);
+   
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -204,14 +206,14 @@ function displayPeople(people) {
 function displayPerson(person) {
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "DOB: " + person.dob + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Eye Color: " + person.eyeColor + "\n";
-  personInfo += "Occupation: " + person.occupation + "\n";
+  let personInfo = "First Name: " + person[0].firstName + "\n";
+  personInfo += "Last Name: " + person[0].lastName + "\n";
+  personInfo += "Gender: " + person[0].gender + "\n";
+  personInfo += "DOB: " + person[0].dob + "\n";
+  personInfo += "Height: " + person[0].height + "\n";
+  personInfo += "Weight: " + person[0].weight + "\n";
+  personInfo += "Eye Color: " + person[0].eyeColor + "\n";
+  personInfo += "Occupation: " + person[0].occupation + "\n";
   // personInfo += "Parents: " + person.parents + "\n"; 
   // personInfo += "Spouse: " + person.currentSpouse + "\n";
 
