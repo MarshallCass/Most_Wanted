@@ -48,13 +48,13 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      // TODO: get person's info
+      displayPerson(person);
       break;
     case "family":
-      // TODO: get person's family
+      displayFamily(people);
       break;
     case "descendants":
-      // TODO: get person's descendants
+      displayDecendants(people);
       break;
     case "restart":
       app(people); // restart
@@ -87,7 +87,7 @@ function searchByName(people) {
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return displayPeople(foundPerson);
+  return displayPerson(foundPerson);
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -198,6 +198,7 @@ function displayPeople(people) {
   alert(people.map(function (person) {
     return person.firstName + " " + person.lastName;
   }).join("\n"));
+  searchByName(people);
 }
 
 function displayPerson(person) {
@@ -205,9 +206,34 @@ function displayPerson(person) {
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "DOB: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  // personInfo += "Parents: " + person.parents + "\n"; 
+  // personInfo += "Spouse: " + person.currentSpouse + "\n";
+
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
+  return mainMenu;
 }
+
+function displayFamily(people) {
+  // print all of the person's family relations:
+  // Parents, GrandParents, Decendants, Spouse
+
+  alert(personFamily);
+}
+
+function displayDecendants(people) {
+  // print all of the person's Decendants:
+  // Decendants
+
+  alert(personDecendants);
+}
+
 
 //#endregion
 
