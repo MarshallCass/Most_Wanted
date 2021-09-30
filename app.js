@@ -89,8 +89,7 @@ function searchByName(people) {
 
   // TODO: find the person single person object using the name they entered.
   return displayPerson(foundPerson);
-   
-}
+ }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people) {
@@ -200,7 +199,6 @@ function displayPeople(people) {
   alert(people.map(function (person) {
     return person.firstName + " " + person.lastName;
   }).join("\n"));
-  searchByName(people);
 }
 
 function displayPerson(person) {
