@@ -15,13 +15,10 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-      let multiOrSingle = prompt("Search by single trait or multiple trait? Input single or multi");
-      if (multiOrSingle.toLowerCase() === "single") {
-        searchResults = traitSearch(people);
-      } else if (multiOrSingle.toLowerCase() === "multi") {
-        searchResults = multiTraitSearch(people);
 
-      }
+      searchResults = multiTraitSearch(people);
+
+
       break;
 
     default:
@@ -44,7 +41,7 @@ function mainMenu(person, people) {
     return app(people); // restart
   }
 
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch (displayOption) {
     case "info":
@@ -87,9 +84,10 @@ function searchByName(people) {
       return false;
     }
   })
+
   // TODO: find the person single person object using the name they entered.
-  displayPeople(foundPerson);
-  return foundPerson;
+
+  return displayPerson(foundPerson);
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -200,7 +198,6 @@ function displayPeople(people) {
   alert(people.map(function (person) {
     return person.firstName + " " + person.lastName;
   }).join("\n"));
-  searchByName(people);
 }
 
 function displayPerson(person) {
@@ -285,40 +282,13 @@ function customValidation(input) {
 
 //#region
 
-function traitSearch(people) {
-  let searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
-
-  switch (searchTraitSelection.toLowerCase()) {
-    case "gender":
-      searchTraitSelection = searchByGender(people);
-      break;
-    case "dob":
-      searchTraitSelection = searchByDob(people);
-      break;
-    case "height":
-      searchTraitSelection = searchByHeight(people);
-      break;
-    case "weight":
-      searchTraitSelection = searchByWeight(people);
-      break;
-    case "eyecolor":
-      searchTraitSelection = searchByEyeColor(people);
-      break;
-    case "occupation":
-      searchTraitSelection = searchByOccupation(people);
-    default:
-      console.log("Whoops, try again!");
-      break;
-
-  }
-}
 function multiTraitSearch(people) {
   let searchTraitSelection;
   let repeat = "";
   let counter = 0;
   let foundPerson = people;
 
-  while (counter !== 5 || repeat !== "done") {
+  while (counter !== 5) {
     searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
     switch (searchTraitSelection) {
       case "gender":
@@ -353,6 +323,7 @@ function multiTraitSearch(people) {
     repeat = prompt("Would you like to search by another trait? If not type done")
     counter++
     if (repeat === "done") {
+      searchByName(people);
       break;
     }
   }
