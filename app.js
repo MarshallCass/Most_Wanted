@@ -41,13 +41,13 @@ function mainMenu(person, people) {
 
   switch (displayOption) {
     case "info":
-      displayPerson(person);
+      displayOption = displayPerson(person);
       break;
     case "family":
-      displayFamily(people);
+      displayOption = searchFamily(person, data)
       break;
     case "descendants":
-      displayDecendants(people);
+      displayOption = searchDecendants(people);
       break;
     case "restart":
       app(people); // restart
@@ -73,7 +73,6 @@ function searchByName(people) {
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.firstName === firstName && potentialMatch.lastName === lastName) {
-      console.log(potentialMatch.firstName + potentialMatch.lastName)
       return true;
     }
     else {
@@ -177,6 +176,21 @@ function searchByOccupation(people) {
   return foundPerson;
 }
 
+function searchFamily(person, people) {
+
+  let parentsFound = [];
+  let currentSpouseFound = [];
+  let personsFamily = people.filter(function (potentialMatch) {
+  if (person[0].lastName === person[0].lastName){
+    parentsFound.push(person[0].parents);
+    currentSpouseFound.push(person[0].currentSpouse);
+  }else{
+    return mainMenu;
+}
+})
+  displayFamily(parentsFound, currentSpouseFound)
+  return personsFamily
+}
 
 
 //TODO: add other trait filter functions here.
@@ -218,10 +232,13 @@ function displayPerson(person) {
 
 function displayFamily(people) {
   // print all of the person's family relations:
-  // Parents, GrandParents, Decendants, Spouse
+  // Parents, Spouse
+let foundFamily = "Parents:" + people[0].parents;
+foundFamily = "Current Spouse:" + people[0].currentSpouse;
 
-  alert(personFamily);
+  alert(personFamily)
 }
+
 
 function displayDecendants(people) {
   // print all of the person's Decendants:
@@ -326,4 +343,4 @@ function multiTraitSearch(people) {
   }
 
 }
-//#endregion
+// #endregion
