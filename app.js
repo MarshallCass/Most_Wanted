@@ -15,12 +15,8 @@ function app(people) {
       searchResults = searchByName(people);
       break;
     case 'no':
-
       searchResults = multiTraitSearch(people);
-
-
       break;
-
     default:
       app(people); // restart app
       break;
@@ -33,7 +29,6 @@ function app(people) {
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
-
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if (!person) {
@@ -48,10 +43,10 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = displayFamily(person, data)
+      displayOption = displaySpouse(person, data)
       break;
     case "descendants":
-      displayOption = searchDecendants(people);
+      displayOption = displayDescendants(person, data);
       break;
     case "restart":
       app(people); // restart
@@ -62,6 +57,7 @@ function mainMenu(person, people) {
       return mainMenu(person, people); // ask again
   }
 }
+
 
 //#endregion
 
@@ -180,6 +176,12 @@ function searchByOccupation(people) {
   return foundPerson;
 }
 
+
+
+//TODO: add other trait filter functions here.
+
+
+
 //#endregion
 
 //Display functions.
@@ -212,6 +214,86 @@ function displayPerson(person) {
   alert(personInfo);
   return mainMenu(person);
 }
+
+//  function displayFamily(person, people){
+//
+//
+//  }
+
+
+function displayDescendants(person, people) {
+  // print all of the person's Decendants:
+  let descendants = [];
+  let parentID = person[0].id;
+  people.filter(function (potentialMatch) {
+
+    let parents = potentialMatch.parents
+    for (let i = 0; i < parents.length; i++) {
+      if (potentialMatch.parents[0] === parentID) {
+        descendants.push(potentialMatch)
+      } else
+
+        //alert(descendants);
+        return descendants != [];
+    }
+  })
+  displayPeople(descendants);
+}
+
+// function displayParents(person, people) {
+//   // print the person's parents:
+//   let parents = [];
+//   let parentId = person[0].id;
+//   people.filter(function (potentialMatch) {
+
+//     let parents = potentialMatch.parents
+//     for (let i = 0; i < parents.length; i++) {
+//       if (potentialMatch.parents[0] === parentId) {
+//         parents.push(potentialMatch)
+//       } else
+
+//         //alert(descendants);
+//         return parents != [];
+//     }
+//   })
+//   displayPeople(parents);
+// }
+// function displayParent(person, people) {
+//   // print all of the person's immediate family:
+//   let parents = [];
+//   let parentId = person[0].id;
+ 
+//   people.filter(function (potentialMatch) {
+//     parents = potentialMatch.parents
+//     if (potentialMatch.parents[0] === parentId) {
+//         return true;
+//         parents.push(potentialMatch)
+//       }else{
+//       return false;
+//     }
+//    })
+//   displayPeople(parents);
+//   return parents != [];
+// }
+
+function displaySpouse(person, people) {
+  // print all of the person's Decendants:
+
+  let foundSpouse = [];
+   
+  let spouseID = person[0].id;
+  people.filter(function (potentialMatch) {
+    let currentSpouse = potentialMatch.currentSpouse
+      if (potentialMatch.currentSpouse === spouseID) {
+        foundSpouse.push(potentialMatch.currentSpouse)
+      } else
+        //alert(Spouse);
+        return foundSpouse != [];
+
+  })
+  displayPeople(foundSpouse);
+}
+
 
 //#endregion
 
