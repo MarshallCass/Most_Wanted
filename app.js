@@ -43,7 +43,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = searchFamily(person, data)
+      displayOption = displaySpouse(person, data)
       break;
     case "descendants":
       displayOption = displayDecendants(person, data);
@@ -259,7 +259,28 @@ function displayDecendants(person, people) {
     }
   })
 
-  return mainMenu(descendants);
+  displayPeople(descendants);
+}
+
+function displaySpouse(person, people) {
+  // print all of the person's Decendants:
+  let foundSpouse = []
+  let spouseID = person[0].id;
+
+  people.filter(function (potentialMatch) {
+
+
+    if (potentialMatch.currentSpouse === spouseID) {
+      foundSpouse.push(potentialMatch)
+    } else
+
+      //alert(descendants);
+      return foundSpouse != [];
+
+
+  })
+
+  displayPeople(foundSpouse);
 }
 
 
