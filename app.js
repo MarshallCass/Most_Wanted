@@ -215,19 +215,19 @@ function displayPerson(person) {
   return mainMenu(person);
 }
 
- function displayFamily(person, people){
-let parents = displayParents(person, people);
-let spouse = displaySpouse(person, people);
-let siblings = displaySiblings(person, people)
+// function displayFamily(person, people){
+// let parents = displayParents(person, people);
+// let spouse = displaySpouse(person, people);
+// let siblings = displaySiblings(person, people)
 
 
-let familyInfo = "Parents: " = parents + "\n";
-familyInfo += "Spouse: " = foundSpouse + "\n";
-familyInfo += "Siblings: " = siblings + "\n";
+// let familyInfo = "Parents: " = parents + "\n";
+// familyInfo += "Spouse: " = foundSpouse + "\n";
+// familyInfo += "Siblings: " = siblings + "\n";
 
-alert(familyInfo);
-return mainMenu(people); 
-}
+// alert(familyInfo);
+// return mainMenu(people); 
+// }
 
 
 function displayDescendants(person, people) {
@@ -272,20 +272,44 @@ function displaySpouse(person, people) {
   displayPeople(foundSpouse);
 }
 
-function displaySiblings(person, people){
- // print all of the person's siblings:
- let siblings = [];
- let parentID = person[0].id;
- people.filter(function (potentialMatch) {
-   let parents = potentialMatch.parents
-     if (potentialMatch.parents[0] === parentID) {
-       descendants.push(potentialMatch)
-     } else
+function displayParents(person, people) {
+  // print all of the person's Parents:
+  let foundParents = []
+  let parentID = person[0].parents;
 
-       //alert(descendants);
-       return siblings != [];
- })
- displayPeople(descendants);
+  people.filter(function (potentialMatch) {
+
+
+    if (potentialMatch.id === parentID[0] || potentialMatch.id === parentID[1]) {
+      foundParents.push(potentialMatch)
+    } else
+
+      //alert(parents);
+      return foundParents != [];
+
+
+  })
+
+  displayPeople(foundParents);
+}
+
+function displaySiblings(person, people) {
+  // print all of the person's siblings:
+  let siblings = [];
+  let parentID = person[0].parents;
+  people.filter(function (potentialMatch) {
+
+      if(potentialMatch.parents === 0) {
+        return false;      
+      }else if (potentialMatch.parents [0] === parentID[1] || potentialMatch.parents[0] === parentID[2] || potentialMatch.parents[0] === parentID[3] || potentialMatch.parents[0] === parentID[4]) {
+        return true;
+        siblings.push(potentialMatch)
+      } else
+
+        //alert(siblings);
+        return siblings != [];
+  })
+  displayPeople(siblings);
 }
 
 
