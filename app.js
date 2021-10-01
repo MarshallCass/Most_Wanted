@@ -43,7 +43,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = displaySpouse(person, data)
+      displayOption = displayParents(person, data)
       break;
     case "descendants":
       displayOption = displayDecendants(person, data);
@@ -281,6 +281,27 @@ function displaySpouse(person, people) {
   })
 
   displayPeople(foundSpouse);
+}
+
+function displayParents(person, people) {
+  // print all of the person's Parents:
+  let foundParents = []
+  let parentID = person[0].parents;
+
+  people.filter(function (potentialMatch) {
+
+
+    if (potentialMatch.id === parentID[0] || potentialMatch.id === parentID[1]) {
+      foundParents.push(potentialMatch)
+    } else
+
+      //alert(parents);
+      return foundParents != [];
+
+
+  })
+
+  displayPeople(foundParents);
 }
 
 
