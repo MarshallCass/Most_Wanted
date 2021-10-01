@@ -29,7 +29,6 @@ function app(people) {
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people) {
-
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if (!person) {
@@ -47,7 +46,7 @@ function mainMenu(person, people) {
       displayOption = searchFamily(person, data)
       break;
     case "descendants":
-      displayOption = searchDecendants(people);
+      displayOption = displayDecendants(person, data);
       break;
     case "restart":
       app(people); // restart
@@ -58,6 +57,7 @@ function mainMenu(person, people) {
       return mainMenu(person, people); // ask again
   }
 }
+
 
 //#endregion
 
@@ -176,18 +176,20 @@ function searchByOccupation(people) {
   return foundPerson;
 }
 
+
+
 function searchFamily(person, people) {
 
   let parentsFound = [];
   let currentSpouseFound = [];
   let personsFamily = people.filter(function (potentialMatch) {
-  if (person[0].lastName === person[0].lastName){
-    parentsFound.push(person[0].parents);
-    currentSpouseFound.push(person[0].currentSpouse);
-  }else{
-    return mainMenu;
-}
-})
+    if (person[0].lastName === person[0].lastName) {
+      parentsFound.push(person[0].parents);
+      currentSpouseFound.push(person[0].currentSpouse);
+    } else {
+      return mainMenu;
+    }
+  })
   displayFamily(parentsFound, currentSpouseFound)
   return personsFamily
 }
@@ -233,18 +235,31 @@ function displayPerson(person) {
 function displayFamily(people) {
   // print all of the person's family relations:
   // Parents, Spouse
-let foundFamily = "Parents:" + people[0].parents;
-foundFamily = "Current Spouse:" + people[0].currentSpouse;
+  let foundFamily = "Parents:" + people[0].parents;
+  foundFamily = "Current Spouse:" + people[0].currentSpouse;
 
   alert(personFamily)
 }
 
 
-function displayDecendants(people) {
+function displayDecendants(person, people) {
   // print all of the person's Decendants:
-  // Decendants
+  let descendants = []
+  let parentID = person[0].id;
+  people.filter(function (potentialMatch) {
 
-  alert(personDecendants);
+    let parents = potentialMatch.parents
+    for (let i = 0; i < parents.length; i++) {
+      if (potentialMatch.parents[0] === parentID) {
+        descendants.push(potentialMatch)
+      } else
+
+        //alert(descendants);
+        return descendants != [];
+    }
+  })
+
+  return mainMenu(descendants);
 }
 
 
