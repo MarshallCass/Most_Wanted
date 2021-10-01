@@ -48,7 +48,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = searchFamily(person, data)
+      displayOption = displayFamily(person, data)
       break;
     case "descendants":
       displayOption = searchDecendants(people);
@@ -180,26 +180,6 @@ function searchByOccupation(people) {
   return foundPerson;
 }
 
-function searchFamily(person, people) {
-
-  let parentsFound = [];
-  let currentSpouseFound = [];
-  let personsFamily = people.filter(function (potentialMatch) {
-  if (person[0].lastName === person[0].lastName){
-    parentsFound.push(person[0].parents);
-    currentSpouseFound.push(person[0].currentSpouse);
-  }else{
-    return mainMenu;
-}
-})
-  displayFamily(parentsFound, currentSpouseFound)
-  return personsFamily
-}
-
-//TODO: add other trait filter functions here.
-
-
-
 //#endregion
 
 //Display functions.
@@ -225,31 +205,13 @@ function displayPerson(person) {
   personInfo += "Weight: " + person[0].weight + "\n";
   personInfo += "Eye Color: " + person[0].eyeColor + "\n";
   personInfo += "Occupation: " + person[0].occupation + "\n";
-  // personInfo += "Parents: " + person.parents + "\n"; 
-  // personInfo += "Spouse: " + person.currentSpouse + "\n";
+  personInfo += "Parents: " + person[0].parents + "\n"; 
+  personInfo += "Spouse: " + person[0].currentSpouse + "\n";
 
   // TODO: finish getting the rest of the information to display.
   alert(personInfo);
   return mainMenu(person);
 }
-
-function displayFamily(people) {
-  // print all of the person's family relations:
-  // Parents, Spouse
-let foundFamily = "Parents:" + people[0].parents;
-foundFamily = "Current Spouse:" + people[0].currentSpouse;
-
-  alert(personFamily)
-}
-
-
-function displayDecendants(people) {
-  // print all of the person's Decendants:
-  // Decendants
-
-  alert(personDecendants);
-}
-
 
 //#endregion
 
