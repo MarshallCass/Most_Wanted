@@ -43,7 +43,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = displaySpouse(person, data)
+      displayOption = displaySiblings(person, data)
       break;
     case "descendants":
       displayOption = displayDescendants(person, data);
@@ -215,10 +215,19 @@ function displayPerson(person) {
   return mainMenu(person);
 }
 
-//  function displayFamily(person, people){
-//
-//
-//  }
+ function displayFamily(person, people){
+let parents = displayParents(person, people);
+let spouse = displaySpouse(person, people);
+let siblings = displaySiblings(person, people)
+
+
+let familyInfo = "Parents: " = parents + "\n";
+familyInfo += "Spouse: " = foundSpouse + "\n";
+familyInfo += "Siblings: " = siblings + "\n";
+
+alert(familyInfo);
+return mainMenu(people); 
+}
 
 
 function displayDescendants(person, people) {
@@ -240,58 +249,43 @@ function displayDescendants(person, people) {
   displayPeople(descendants);
 }
 
-// function displayParents(person, people) {
-//   // print the person's parents:
-//   let parents = [];
-//   let parentId = person[0].id;
-//   people.filter(function (potentialMatch) {
 
-//     let parents = potentialMatch.parents
-//     for (let i = 0; i < parents.length; i++) {
-//       if (potentialMatch.parents[0] === parentId) {
-//         parents.push(potentialMatch)
-//       } else
-
-//         //alert(descendants);
-//         return parents != [];
-//     }
-//   })
-//   displayPeople(parents);
-// }
-// function displayParent(person, people) {
-//   // print all of the person's immediate family:
-//   let parents = [];
-//   let parentId = person[0].id;
- 
-//   people.filter(function (potentialMatch) {
-//     parents = potentialMatch.parents
-//     if (potentialMatch.parents[0] === parentId) {
-//         return true;
-//         parents.push(potentialMatch)
-//       }else{
-//       return false;
-//     }
-//    })
-//   displayPeople(parents);
-//   return parents != [];
-// }
 
 function displaySpouse(person, people) {
   // print all of the person's Decendants:
-
-  let foundSpouse = [];
-   
+  let foundSpouse = []
   let spouseID = person[0].id;
+
   people.filter(function (potentialMatch) {
-    let currentSpouse = potentialMatch.currentSpouse
-      if (potentialMatch.currentSpouse === spouseID) {
-        foundSpouse.push(potentialMatch.currentSpouse)
-      } else
-        //alert(Spouse);
-        return foundSpouse != [];
+
+
+    if (potentialMatch.currentSpouse === spouseID) {
+      foundSpouse.push(potentialMatch)
+    } else
+
+      //alert(descendants);
+      return foundSpouse != [];
+
 
   })
+
   displayPeople(foundSpouse);
+}
+
+function displaySiblings(person, people){
+ // print all of the person's siblings:
+ let siblings = [];
+ let parentID = person[0].id;
+ people.filter(function (potentialMatch) {
+   let parents = potentialMatch.parents
+     if (potentialMatch.parents[0] === parentID) {
+       descendants.push(potentialMatch)
+     } else
+
+       //alert(descendants);
+       return siblings != [];
+ })
+ displayPeople(descendants);
 }
 
 
