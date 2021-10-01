@@ -43,7 +43,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = displayParents(person, data)
+      displayOption = displaySiblings(person, data)
       break;
     case "descendants":
       displayOption = displayDecendants(person, data);
@@ -304,6 +304,19 @@ function displayParents(person, people) {
   displayPeople(foundParents);
 }
 
+function displaySiblings(person, people) {
+  // print all of the person's siblings:
+  let siblings = []
+  let siblingParents = person[0].parents;
+  people.filter(function (potentialMatch) {
+    if (potentialMatch.parents[0] === siblingParents[0]) {
+      siblings.push(potentialMatch)
+    } else
+      //alert(siblings);
+      return siblings != [];
+  })
+  displayPeople(siblings);
+}
 
 //#endregion
 
