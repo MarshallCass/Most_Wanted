@@ -43,7 +43,7 @@ function mainMenu(person, people) {
       displayOption = displayPerson(person);
       break;
     case "family":
-      displayOption = displaySiblings(person, data)
+      displayOption = displayFamily(person, data)
       break;
     case "descendants":
       displayOption = displayDecendants(person, data);
@@ -177,24 +177,6 @@ function searchByOccupation(people) {
 }
 
 
-
-function searchFamily(person, people) {
-
-  let parentsFound = [];
-  let currentSpouseFound = [];
-  let personsFamily = people.filter(function (potentialMatch) {
-    if (person[0].lastName === person[0].lastName) {
-      parentsFound.push(person[0].parents);
-      currentSpouseFound.push(person[0].currentSpouse);
-    } else {
-      return mainMenu;
-    }
-  })
-  displayFamily(parentsFound, currentSpouseFound)
-  return personsFamily
-}
-
-
 //TODO: add other trait filter functions here.
 
 
@@ -232,13 +214,13 @@ function displayPerson(person) {
   return mainMenu(person);
 }
 
-function displayFamily(people) {
-  // print all of the person's family relations:
-  // Parents, Spouse
-  let foundFamily = "Parents:" + people[0].parents;
-  foundFamily = "Current Spouse:" + people[0].currentSpouse;
+function displayFamily(person, people) {
 
-  alert(personFamily)
+
+  displayParents("parents: " + person, people);
+  displaySiblings("siblings: " + person, people);
+  displaySpouse("sibilings: " + person, people);
+
 }
 
 
@@ -317,6 +299,7 @@ function displaySiblings(person, people) {
   })
   displayPeople(siblings);
 }
+
 
 //#endregion
 
