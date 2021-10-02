@@ -36,7 +36,7 @@ function mainMenu(person, people) {
     return app(people); // restart
   }
 
-  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", letterValidation);
 
   switch (displayOption) {
     case "info":
@@ -68,8 +68,8 @@ function mainMenu(person, people) {
 
 //nearly finished function used to search through an array of people to find matching first and last name and return a SINGLE person object.
 function searchByName(people) {
-  let firstName = promptFor("What is the person's first name?", autoValid);
-  let lastName = promptFor("What is the person's last name?", autoValid);
+  let firstName = promptFor("What is the person's first name?", letterValidation);
+  let lastName = promptFor("What is the person's last name?", letterValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.firstName === firstName && potentialMatch.lastName === lastName) {
@@ -88,7 +88,7 @@ function searchByName(people) {
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people) {
 
-  let eyeColor = promptFor("What is the person's eye color?", autoValid);
+  let eyeColor = promptFor("What is the person's eye color?", letterValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.eyeColor === eyeColor) {
@@ -103,7 +103,7 @@ function searchByEyeColor(people) {
 
 function searchByGender(people) {
 
-  let gender = promptFor("What is the person's gender?", autoValid);
+  let gender = promptFor("What is the person's gender?", letterValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.gender === gender) {
@@ -133,7 +133,7 @@ function searchByDob(people) {
 
 function searchByHeight(people) {
 
-  let height = promptFor("What is the person's height in inches?", autoValid);
+  let height = promptFor("What is the person's height in inches?", numberValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.height === parseInt(height)) {
@@ -148,7 +148,7 @@ function searchByHeight(people) {
 
 function searchByWeight(people) {
 
-  let weight = promptFor("What is the person's weight in pounds?", autoValid);
+  let weight = promptFor("What is the person's weight in pounds?", numberValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.weight === parseInt(weight)) {
@@ -163,7 +163,7 @@ function searchByWeight(people) {
 
 function searchByOccupation(people) {
 
-  let occupation = promptFor("What is the person's occupation?", autoValid);
+  let occupation = promptFor("What is the person's occupation?", letterValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.occupation === occupation) {
@@ -229,7 +229,6 @@ function displayDecendants(person, people) {
   let descendants = []
   let parentID = person[0].id;
   people.filter(function (potentialMatch) {
-
     let parents = potentialMatch.parents
     for (let i = 0; i < parents.length; i++) {
       if (potentialMatch.parents[0] === parentID) {
@@ -240,7 +239,6 @@ function displayDecendants(person, people) {
         return descendants != [];
     }
   })
-
   displayPeople(descendants);
 }
 
@@ -248,20 +246,13 @@ function displaySpouse(person, people) {
   // print all of the person's Decendants:
   let foundSpouse = []
   let spouseID = person[0].id;
-
   people.filter(function (potentialMatch) {
-
-
     if (potentialMatch.currentSpouse === spouseID) {
       foundSpouse.push(potentialMatch)
     } else
-
       //alert(descendants);
       return foundSpouse != [];
-
-
   })
-
   displayPeople(foundSpouse);
 }
 
@@ -269,20 +260,13 @@ function displayParents(person, people) {
   // print all of the person's Parents:
   let foundParents = []
   let parentID = person[0].parents;
-
   people.filter(function (potentialMatch) {
-
-
     if (potentialMatch.id === parentID[0] || potentialMatch.id === parentID[1]) {
       foundParents.push(potentialMatch)
     } else
-
       //alert(parents);
       return foundParents != [];
-
-
   })
-
   displayPeople(foundParents);
 }
 
@@ -341,10 +325,61 @@ function autoValid(input) {
 
 //Unfinished validation function you can use for any of your custom validation callbacks.
 //can be used for things like eye color validation for example.
-function customValidation(input) {
 
-}
+function letterValidation(input) {
+  let letters = /^[A-Za-z]+$/;
+  if(input.match(letters)) {
+     return true;
+    }else{
+    alert("Your input was invalid");
+    return false;
+    }
+ }
 
+ function numberValidation(input) {
+  let numbers = /^[0-9]*$/;
+  if(input.match(numbers) && input < 350) {
+     return true;
+    }else{
+    alert("Your input was invalid");
+    return false;
+    }
+ }
+
+ function dobValidation(input) {
+  let dob = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+  if(input.match(dob)) {
+    return true;
+    }else{
+    alert("Your input was invalid");
+  return false;
+ }
+ }
+//  function isValidDate(dateString)
+//  {
+//      // First check for the pattern
+//      if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString))
+//          return false;
+ 
+//      // Parse the date parts to integers
+//      var parts = dateString.split("/");
+//      var day = parseInt(parts[1], 10);
+//      var month = parseInt(parts[0], 10);
+//      var year = parseInt(parts[2], 10);
+ 
+//      // Check the ranges of month and year
+//      if(year < 1000 || year > 3000 || month == 0 || month > 12)
+//          return false;
+ 
+//      var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+ 
+//      // Adjust for leap years
+//      if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+//          monthLength[1] = 29;
+ 
+//      // Check the range of the day
+//      return day > 0 && day <= monthLength[month - 1];
+//  };
 //#endregion
 
 //#region
@@ -354,7 +389,6 @@ function multiTraitSearch(people) {
   let repeat = "";
   let counter = 0;
   let foundPerson = people;
-
   while (counter !== 5) {
     searchTraitSelection = prompt("Which of these traits would you like to search by?  Gender , DOB, Height, Weight, EyeColor, Occupation");
     switch (searchTraitSelection) {
@@ -385,7 +419,6 @@ function multiTraitSearch(people) {
         console.log("Whoops, try again!");
         counter++
         break;
-
     }
     repeat = prompt("Would you like to search by another trait? If not type done")
     counter++
@@ -394,6 +427,5 @@ function multiTraitSearch(people) {
       break;
     }
   }
-
 }
 // #endregion
