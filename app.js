@@ -118,7 +118,7 @@ function searchByGender(people) {
 
 function searchByDob(people) {
 
-  let dob = promptFor("What is the person's date of birth? EX: 1/11/11", autoValid);
+  let dob = promptFor("What is the person's date of birth? EX: 1/11/11", dobValidation);
 
   let foundPerson = people.filter(function (potentialMatch) {
     if (potentialMatch.dob === dob) {
@@ -195,9 +195,20 @@ function displayPeople(people) {
   }).join("\n"));
 }
 
-function displayPerson(person) {
+function displayPerson(person, people) {
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
+  let parentsArray = [];
+  let parentIdentifier = person[0].parents;
+  people.filter(function (potentialMatch) {
+    if (potentialMatch.id === parentIdentifier[0] || potentialMatch.id === parentIdentifier[1]) {
+      parentsArray.push(potentialMatch)
+    } else
+      //alert(parents);
+      return parentsArray != [];
+  })
+
+
   let personInfo = "First Name: " + person[0].firstName + "\n";
   personInfo += "Last Name: " + person[0].lastName + "\n";
   personInfo += "Gender: " + person[0].gender + "\n";
@@ -206,10 +217,9 @@ function displayPerson(person) {
   personInfo += "Weight: " + person[0].weight + "\n";
   personInfo += "Eye Color: " + person[0].eyeColor + "\n";
   personInfo += "Occupation: " + person[0].occupation + "\n";
-  // personInfo += "Parents: " + person.parents + "\n"; 
-  // personInfo += "Spouse: " + person.currentSpouse + "\n";
+  personInfo += "Parents: " + parentsArray + "\n"; 
+  personInfo += "Spouse: " + person[0].currentSpouse + "\n";
 
-  // TODO: finish getting the rest of the information to display.
   alert(personInfo);
   return mainMenu(person);
 }
@@ -347,39 +357,27 @@ function numberValidation(input) {
 }
 
 function dobValidation(input) {
-  let dob = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
-  if (input.match(dob)) {
-    return true;
-  } else {
-    alert("Your input was invalid");
-    return false;
-  }
+
+     if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(input))
+         return false;
+     let parts = input.split("/");
+     let day = parseInt(parts[1], 10);
+     let month = parseInt(parts[0], 10);
+     let year = parseInt(parts[2], 10);
+     let monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+     if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)){
+         monthLength[1] = 29;
+     return day > 0 && day <= monthLength[month - 1];
+     }else  if(year < 1850 || year > 2075 || month == 0 || month > 12){
+      alert("Your input was invalid");
+      return false;
+     }else{
+
+     return true;
+    }
 }
-//  function isValidDate(dateString)
-//  {
-//      // First check for the pattern
-//      if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString))
-//          return false;
 
-//      // Parse the date parts to integers
-//      var parts = dateString.split("/");
-//      var day = parseInt(parts[1], 10);
-//      var month = parseInt(parts[0], 10);
-//      var year = parseInt(parts[2], 10);
-
-//      // Check the ranges of month and year
-//      if(year < 1000 || year > 3000 || month == 0 || month > 12)
-//          return false;
-
-//      var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
-
-//      // Adjust for leap years
-//      if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-//          monthLength[1] = 29;
-
-//      // Check the range of the day
-//      return day > 0 && day <= monthLength[month - 1];
-//  };
 //#endregion
 
 //#region
@@ -416,8 +414,7 @@ function multiTraitSearch(people) {
         counter++
         foundPerson = searchByOccupation(foundPerson);
       default:
-        console.log("Whoops, try again!");
-        counter++
+        counter++;
         break;
     }
     repeat = prompt("Would you like to search by another trait? If not type done")
