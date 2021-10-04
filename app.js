@@ -198,17 +198,6 @@ function displayPeople(people) {
 function displayPerson(person, people) {
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let parentsArray = [];
-  let parentIdentifier = person[0].parents;
-  people.filter(function (potentialMatch) {
-    if (potentialMatch.id === parentIdentifier[0] || potentialMatch.id === parentIdentifier[1]) {
-      parentsArray.push(potentialMatch)
-    } else
-      //alert(parents);
-      return parentsArray != [];
-  })
-
-
   let personInfo = "First Name: " + person[0].firstName + "\n";
   personInfo += "Last Name: " + person[0].lastName + "\n";
   personInfo += "Gender: " + person[0].gender + "\n";
@@ -217,8 +206,6 @@ function displayPerson(person, people) {
   personInfo += "Weight: " + person[0].weight + "\n";
   personInfo += "Eye Color: " + person[0].eyeColor + "\n";
   personInfo += "Occupation: " + person[0].occupation + "\n";
-  personInfo += "Parents: " + parentsArray + "\n"; 
-  personInfo += "Spouse: " + person[0].currentSpouse + "\n";
 
   alert(personInfo);
   return mainMenu(person);
